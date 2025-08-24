@@ -44,10 +44,19 @@ const translations = {
     playAudio: '播放音频',
     pauseAudio: '暂停音频',
     backgroundMusic: '背景音乐',
+    voice: '语音',
     none: '无',
     rain: '雨声',
     forest: '森林',
     ocean: '海洋',
+    whitenoise: '白噪音',
+    brownian: '棕噪音',
+    pink: '粉噪音',
+    default: '默认',
+    male: '男声',
+    female: '女声',
+    calm: '平静',
+    warm: '温暖',
     
     // Breathing
     breathingGuide: '呼吸指导',
@@ -60,6 +69,7 @@ const translations = {
     stop: '停止',
     close: '关闭',
     settings: '设置',
+    loading: '加载中...',
   },
   en: {
     // Navigation
@@ -93,10 +103,19 @@ const translations = {
     playAudio: 'Play Audio',
     pauseAudio: 'Pause Audio',
     backgroundMusic: 'Background Music',
+    voice: 'Voice',
     none: 'None',
     rain: 'Rain',
     forest: 'Forest',
     ocean: 'Ocean',
+    whitenoise: 'White Noise',
+    brownian: 'Brown Noise',
+    pink: 'Pink Noise',
+    default: 'Default',
+    male: 'Male',
+    female: 'Female',
+    calm: 'Calm',
+    warm: 'Warm',
     
     // Breathing
     breathingGuide: 'Breathing Guide',
@@ -109,6 +128,7 @@ const translations = {
     stop: 'Stop',
     close: 'Close',
     settings: 'Settings',
+    loading: 'Loading...',
   }
 };
 

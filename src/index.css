@@ -5,50 +5,81 @@
 /* Soul Pease Design System - Dark Purple Theme with Glassmorphism */
 
 @layer base {
-  :root {
-    /* Dark purple gradient theme */
-    --background: 240 15% 9%; /* Deep dark purple-black */
-    --foreground: 0 0% 98%; /* Near white text */
+:root {
+  --background: 240 10% 4%;
+  --foreground: 240 19% 97%;
+  
+  --card: 240 10% 4%;
+  --card-foreground: 240 19% 97%;
+  
+  --popover: 240 10% 4%;
+  --popover-foreground: 240 19% 97%;
+  
+  --primary: 240 100% 75%;
+  --primary-foreground: 240 19% 7%;
+  
+  --secondary: 240 10% 15%;
+  --secondary-foreground: 240 19% 97%;
+  
+  --muted: 240 10% 15%;
+  --muted-foreground: 240 19% 65%;
+  
+  --accent: 240 10% 15%;
+  --accent-foreground: 240 19% 97%;
+  
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 0 85.7% 97.3%;
+  
+  --border: 240 10% 15%;
+  --input: 240 10% 15%;
+  --ring: 240 100% 75%;
+  
+  --radius: 0.75rem;
+  
+  /* Purple glass theme */
+  --glass-light: rgba(139, 92, 246, 0.1);
+  --glass-medium: rgba(139, 92, 246, 0.2);
+  --glass-heavy: rgba(139, 92, 246, 0.3);
+  
+  /* Flowing animation variables */
+  --flow-size: 600px;
+  --flow-speed: 20s;
+}
 
-    /* Card colors - frosted glass effect */
-    --card: 240 15% 15%; /* Dark purple with transparency */
-    --card-foreground: 0 0% 95%;
-
-    /* Popover colors */
-    --popover: 240 15% 12%;
-    --popover-foreground: 0 0% 95%;
-
-    /* Primary colors - vibrant purple */
-    --primary: 269 100% 75%; /* Bright purple */
-    --primary-foreground: 240 15% 9%;
-    --primary-hover: 269 100% 80%;
-
-    /* Secondary colors - translucent dark */
-    --secondary: 240 15% 20%; /* Darker purple-gray */
-    --secondary-foreground: 0 0% 90%;
-    --secondary-hover: 240 15% 25%;
-
-    /* Muted colors for subtle elements */
-    --muted: 240 15% 18%;
-    --muted-foreground: 0 0% 65%; /* Light gray for secondary text */
-
-    /* Accent colors - purple tint */
-    --accent: 260 30% 25%;
-    --accent-foreground: 0 0% 95%;
-
-    /* Status colors */
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 98%;
-    --success: 142 76% 50%; /* Brighter green for dark theme */
-    --success-foreground: 0 0% 98%;
-
-    /* Border and input - subtle purple */
-    --border: 240 15% 25%; /* Purple-tinted borders */
-    --input: 240 15% 18%;
-    --ring: 269 100% 75%;
-
-    /* Larger radius for modern look */
-    --radius: 1.5rem;
+[data-theme="light"] {
+  --background: 0 0% 100%;
+  --foreground: 240 10% 3.9%;
+  
+  --card: 0 0% 100%;
+  --card-foreground: 240 10% 3.9%;
+  
+  --popover: 0 0% 100%;
+  --popover-foreground: 240 10% 3.9%;
+  
+  --primary: 240 100% 60%;
+  --primary-foreground: 0 0% 98%;
+  
+  --secondary: 240 4.8% 95.9%;
+  --secondary-foreground: 240 5.9% 10%;
+  
+  --muted: 240 4.8% 95.9%;
+  --muted-foreground: 240 3.8% 46.1%;
+  
+  --accent: 240 4.8% 95.9%;
+  --accent-foreground: 240 5.9% 10%;
+  
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 0 0% 98%;
+  
+  --border: 240 5.9% 90%;
+  --input: 240 5.9% 90%;
+  --ring: 240 100% 60%;
+  
+  /* Light theme glass */
+  --glass-light: rgba(139, 92, 246, 0.05);
+  --glass-medium: rgba(139, 92, 246, 0.1);
+  --glass-heavy: rgba(139, 92, 246, 0.15);
+}
 
     --sidebar-background: 0 0% 98%;
 

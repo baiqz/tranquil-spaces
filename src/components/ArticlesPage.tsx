@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { BookOpen, Clock, Heart, ArrowLeft, Globe } from "lucide-react";
+import { BookOpen, Clock, Heart, ArrowLeft } from "lucide-react";
+import { ThemeSwitcher } from "./ThemeSwitcher";
 import { cn } from "@/lib/utils";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { TTSPlayer } from "@/components/TTS/TTSPlayer";
@@ -180,15 +181,7 @@ export const ArticlesPage = () => {
             </p>
           </div>
           
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => setLanguage(language === 'zh' ? 'en' : 'zh')}
-            className="glass-dark border-border/30 text-muted-foreground hover:text-foreground"
-          >
-            <Globe size={16} className="mr-2" />
-            {language === 'zh' ? 'EN' : '中'}
-          </Button>
+          <ThemeSwitcher />
         </div>
       </div>
 
@@ -198,9 +191,8 @@ export const ArticlesPage = () => {
           {articles.map((article, index) => (
             <Card 
               key={article.id}
-              className="glass-dark border-0 shadow-lg hover:shadow-xl smooth-transition cursor-pointer active:scale-[0.98] animate-glass-float"
+              className="glass-dark border-0 shadow-lg hover:shadow-xl smooth-transition cursor-pointer active:scale-[0.98]"
               onClick={() => setSelectedArticle(article)}
-              style={{ animationDelay: `${index * 0.1}s` }}
             >
               <CardContent className="p-6">
                 <div className="flex items-start justify-between mb-3">

@@ -2,6 +2,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Waves, Brain, BookOpen, ArrowRight } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { ThemeSwitcher } from "./ThemeSwitcher";
 
 interface HomePageProps {
   onNavigate: (tab: string) => void;
@@ -45,12 +46,17 @@ export const HomePage = ({ onNavigate }: HomePageProps) => {
     <div className="flex flex-col min-h-screen bg-background flow-bg">
       {/* Header */}
       <div className="pt-16 pb-8 px-6">
-        <h1 className="text-3xl font-bold text-foreground mb-2 font-serif">
-          {greetingTime()}
-        </h1>
-        <p className="text-lg text-muted-foreground">
-          今天也要好好照顾自己
-        </p>
+        <div className="flex items-center justify-between mb-4">
+          <div>
+            <h1 className="text-3xl font-bold text-foreground mb-2 font-serif">
+              {greetingTime()}
+            </h1>
+            <p className="text-lg text-muted-foreground">
+              今天也要好好照顾自己
+            </p>
+          </div>
+          <ThemeSwitcher />
+        </div>
       </div>
 
       {/* Daily Quote Card */}
