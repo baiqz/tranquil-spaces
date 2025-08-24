@@ -98,24 +98,24 @@ export const ArticlesPage = () => {
     return (
       <div className="flex flex-col min-h-screen bg-background">
         {/* Article Header */}
-        <div className="pt-12 pb-6 px-6 border-b border-border">
+        <div className="pt-16 pb-6 px-6 border-b border-border/30">
           <Button
             variant="ghost"
             onClick={() => setSelectedArticle(null)}
-            className="mb-4 -ml-2"
+            className="mb-4 -ml-2 text-muted-foreground hover:text-foreground"
           >
             <ArrowLeft size={20} className="mr-2" />
-            返回文章列表
+            返回
           </Button>
           
-          <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
+          <div className="flex items-center gap-2 text-sm text-muted-foreground mb-3">
             <Clock size={16} />
             <span>{selectedArticle.readTime}</span>
             <span>•</span>
             <span>{selectedArticle.category}</span>
           </div>
           
-          <h1 className="text-2xl font-bold text-foreground mb-4">
+          <h1 className="text-2xl font-bold text-foreground mb-4 leading-tight">
             {selectedArticle.title}
           </h1>
           
@@ -124,12 +124,12 @@ export const ArticlesPage = () => {
             size="sm"
             onClick={() => toggleFavorite(selectedArticle.id)}
             className={cn(
-              "mb-4",
-              selectedArticle.isFavorite && "text-red-500"
+              "text-muted-foreground hover:text-foreground -ml-2",
+              selectedArticle.isFavorite && "text-red-500 hover:text-red-600"
             )}
           >
             <Heart 
-              size={20} 
+              size={18} 
               className={cn(
                 "mr-2",
                 selectedArticle.isFavorite && "fill-current"
@@ -159,9 +159,9 @@ export const ArticlesPage = () => {
   return (
     <div className="flex flex-col min-h-screen bg-background">
       {/* Header */}
-      <div className="pt-12 pb-6 px-6">
-        <h1 className="text-2xl font-bold text-foreground mb-2">
-          斯多葛文章
+      <div className="pt-16 pb-8 px-6">
+        <h1 className="text-3xl font-bold text-foreground mb-2">
+          斯多葛智慧
         </h1>
         <p className="text-muted-foreground">
           古老的智慧，现代的应用
@@ -170,17 +170,17 @@ export const ArticlesPage = () => {
 
       {/* Articles List */}
       <div className="px-6 flex-1">
-        <div className="grid gap-4">
+        <div className="space-y-4">
           {articles.map((article) => (
             <Card 
               key={article.id}
-              className="hover:shadow-lg smooth-transition cursor-pointer"
+              className="border-0 shadow-sm hover:shadow-md smooth-transition cursor-pointer active:scale-[0.98]"
               onClick={() => setSelectedArticle(article)}
             >
               <CardContent className="p-6">
                 <div className="flex items-start justify-between mb-3">
-                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <Clock size={16} />
+                  <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                    <Clock size={14} />
                     <span>{article.readTime}</span>
                     <span>•</span>
                     <span>{article.category}</span>
@@ -194,8 +194,8 @@ export const ArticlesPage = () => {
                       toggleFavorite(article.id);
                     }}
                     className={cn(
-                      "p-2",
-                      article.isFavorite && "text-red-500"
+                      "p-2 hover:bg-secondary",
+                      article.isFavorite && "text-red-500 hover:text-red-600"
                     )}
                   >
                     <Heart 
@@ -205,17 +205,17 @@ export const ArticlesPage = () => {
                   </Button>
                 </div>
                 
-                <h3 className="text-lg font-semibold text-foreground mb-2">
+                <h3 className="text-lg font-semibold text-foreground mb-2 leading-tight">
                   {article.title}
                 </h3>
                 
-                <p className="text-muted-foreground mb-4 line-clamp-2">
+                <p className="text-muted-foreground text-sm line-clamp-2 leading-relaxed">
                   {article.excerpt}
                 </p>
                 
-                <div className="flex items-center text-primary">
+                <div className="flex items-center text-primary mt-4 text-sm">
                   <BookOpen size={16} className="mr-2" />
-                  <span className="text-sm font-medium">阅读全文</span>
+                  <span className="font-medium">阅读全文</span>
                 </div>
               </CardContent>
             </Card>

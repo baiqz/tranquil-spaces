@@ -6,49 +6,49 @@
 
 @layer base {
   :root {
-    /* Background colors - soft and calming */
-    --background: 194 100% 97%; /* Very light blue #F0FFFE */
-    --foreground: 210 25% 15%; /* Deep blue-gray for text */
+    /* Minimalist color palette inspired by Stoic app */
+    --background: 0 0% 100%; /* Pure white */
+    --foreground: 0 0% 9%; /* Near black for text */
 
-    /* Card colors */
-    --card: 0 0% 100%; /* Pure white for cards */
-    --card-foreground: 210 25% 15%;
+    /* Card colors - clean white with subtle shadows */
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 9%;
 
     /* Popover colors */
     --popover: 0 0% 100%;
-    --popover-foreground: 210 25% 15%;
+    --popover-foreground: 0 0% 9%;
 
-    /* Primary colors - calming blue */
-    --primary: 194 100% 88%; /* Light blue #E1F5FE */
-    --primary-foreground: 210 25% 15%;
-    --primary-hover: 194 100% 82%; /* Slightly darker blue for hover */
+    /* Primary colors - subtle blue accent */
+    --primary: 221 83% 53%; /* Clean blue */
+    --primary-foreground: 0 0% 98%;
+    --primary-hover: 221 83% 48%;
 
-    /* Secondary colors - gentle green */
-    --secondary: 120 50% 93%; /* Light green #E8F5E9 */
-    --secondary-foreground: 210 25% 15%;
-    --secondary-hover: 120 50% 88%; /* Slightly darker green for hover */
+    /* Secondary colors - light gray */
+    --secondary: 0 0% 96%; /* Very light gray */
+    --secondary-foreground: 0 0% 9%;
+    --secondary-hover: 0 0% 92%;
 
-    /* Muted colors */
-    --muted: 210 15% 96%;
-    --muted-foreground: 210 15% 45%;
+    /* Muted colors for subtle elements */
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 45%; /* Medium gray for secondary text */
 
-    /* Accent colors - warm accent for highlights */
-    --accent: 45 100% 88%; /* Soft yellow #FFF3E0 */
-    --accent-foreground: 210 25% 15%;
+    /* Accent colors */
+    --accent: 0 0% 96%;
+    --accent-foreground: 0 0% 9%;
 
     /* Status colors */
-    --destructive: 0 75% 65%;
-    --destructive-foreground: 0 0% 100%;
-    --success: 120 60% 70%;
-    --success-foreground: 0 0% 100%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    --success: 142 76% 36%; /* Clean green */
+    --success-foreground: 0 0% 98%;
 
-    /* Border and input */
-    --border: 210 20% 90%;
-    --input: 210 20% 95%;
-    --ring: 194 100% 70%;
+    /* Border and input - very subtle */
+    --border: 0 0% 90%; /* Light gray borders */
+    --input: 0 0% 96%;
+    --ring: 221 83% 53%;
 
-    /* Border radius for soft design */
-    --radius: 1rem;
+    /* Larger radius for modern look */
+    --radius: 1.5rem;
 
     --sidebar-background: 0 0% 98%;
 
@@ -68,38 +68,38 @@
   }
 
   .dark {
-    /* Dark mode with calming night colors */
-    --background: 210 30% 8%; /* Dark blue-gray */
-    --foreground: 210 15% 90%; /* Light text */
+    /* Dark mode with clean contrast */
+    --background: 0 0% 9%; /* Near black */
+    --foreground: 0 0% 98%; /* Near white text */
 
-    --card: 210 25% 12%; /* Darker cards */
-    --card-foreground: 210 15% 90%;
+    --card: 0 0% 12%; /* Dark cards */
+    --card-foreground: 0 0% 98%;
 
-    --popover: 210 25% 12%;
-    --popover-foreground: 210 15% 90%;
+    --popover: 0 0% 12%;
+    --popover-foreground: 0 0% 98%;
 
-    --primary: 194 80% 25%; /* Darker blue */
-    --primary-foreground: 210 15% 95%;
-    --primary-hover: 194 80% 30%;
+    --primary: 221 83% 53%; /* Same blue in dark mode */
+    --primary-foreground: 0 0% 98%;
+    --primary-hover: 221 83% 58%;
 
-    --secondary: 120 30% 20%; /* Darker green */
-    --secondary-foreground: 210 15% 95%;
-    --secondary-hover: 120 30% 25%;
+    --secondary: 0 0% 15%; /* Dark gray */
+    --secondary-foreground: 0 0% 98%;
+    --secondary-hover: 0 0% 18%;
 
-    --muted: 210 20% 15%;
-    --muted-foreground: 210 15% 60%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 60%; /* Lighter gray for readability */
 
-    --accent: 45 60% 30%; /* Darker warm accent */
-    --accent-foreground: 210 15% 95%;
+    --accent: 0 0% 15%;
+    --accent-foreground: 0 0% 98%;
 
-    --destructive: 0 65% 45%;
-    --destructive-foreground: 210 15% 95%;
-    --success: 120 50% 40%;
-    --success-foreground: 210 15% 95%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    --success: 142 76% 36%;
+    --success-foreground: 0 0% 98%;
 
-    --border: 210 20% 20%;
-    --input: 210 20% 18%;
-    --ring: 194 80% 50%;
+    --border: 0 0% 20%; /* Subtle dark borders */
+    --input: 0 0% 15%;
+    --ring: 221 83% 53%;
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;

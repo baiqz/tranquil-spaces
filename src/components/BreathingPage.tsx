@@ -97,34 +97,34 @@ export const BreathingPage = () => {
   return (
     <div className="flex flex-col min-h-screen bg-background">
       {/* Header */}
-      <div className="pt-12 pb-6 px-6">
-        <h1 className="text-2xl font-bold text-foreground mb-2">
+      <div className="pt-16 pb-8 px-6">
+        <h1 className="text-3xl font-bold text-foreground mb-2">
           呼吸练习
         </h1>
         <p className="text-muted-foreground">
-          跟随指导，调节呼吸，放松身心
+          跟随指导调节呼吸，找到内心平静
         </p>
       </div>
 
       {/* Method Selection */}
       <div className="px-6 mb-8">
-        <div className="flex gap-2">
+        <div className="grid grid-cols-2 gap-3">
           {Object.entries(methods).map(([key, methodInfo]) => (
             <Button
               key={key}
               variant={method === key ? "default" : "outline"}
               className={cn(
-                "flex-1 p-4 h-auto",
-                method === key && "bg-primary text-primary-foreground"
+                "h-auto p-4 text-left border-0 shadow-sm",
+                method === key ? "bg-primary text-primary-foreground shadow-md" : "bg-card"
               )}
               onClick={() => {
                 setMethod(key as '478' | 'box');
                 handleReset();
               }}
             >
-              <div className="text-center">
-                <div className="font-semibold">{methodInfo.name}</div>
-                <div className="text-xs mt-1 opacity-80">
+              <div>
+                <div className="font-semibold mb-1">{methodInfo.name}</div>
+                <div className="text-xs opacity-80">
                   {methodInfo.description}
                 </div>
               </div>
@@ -136,26 +136,23 @@ export const BreathingPage = () => {
       {/* Breathing Circle */}
       <div className="flex-1 flex items-center justify-center px-6">
         <div className="relative">
-          {/* Background Circle */}
-          <div className="w-64 h-64 rounded-full border-4 border-primary/20 flex items-center justify-center">
-            {/* Animated Circle */}
-            <div 
-              className={cn(
-                "w-48 h-48 rounded-full bg-gradient-to-br from-primary to-secondary",
-                "flex flex-col items-center justify-center text-white shadow-2xl",
-                getAnimationClass()
-              )}
-            >
-              <div className="text-center">
-                <div className="text-2xl font-bold mb-2">
-                  {getPhaseText()}
-                </div>
-                <div className="text-4xl font-mono">
-                  {currentPhase - timer}
-                </div>
-                <div className="text-sm mt-2 opacity-80">
-                  第 {cycle + 1} 轮
-                </div>
+          {/* Animated Circle */}
+          <div 
+            className={cn(
+              "w-64 h-64 rounded-full bg-secondary border border-border/20",
+              "flex flex-col items-center justify-center shadow-lg",
+              getAnimationClass()
+            )}
+          >
+            <div className="text-center">
+              <div className="text-xl font-semibold text-foreground mb-3">
+                {getPhaseText()}
+              </div>
+              <div className="text-5xl font-mono font-bold text-foreground mb-2">
+                {currentPhase - timer}
+              </div>
+              <div className="text-sm text-muted-foreground">
+                第 {cycle + 1} 轮
               </div>
             </div>
           </div>
@@ -167,7 +164,7 @@ export const BreathingPage = () => {
                 key={p}
                 className={cn(
                   "w-2 h-2 rounded-full transition-colors",
-                  phase === p ? "bg-primary" : "bg-muted"
+                  phase === p ? "bg-primary" : "bg-border"
                 )}
               />
             ))}
@@ -177,23 +174,24 @@ export const BreathingPage = () => {
 
       {/* Controls */}
       <div className="px-6 pb-24">
-        <Card>
+        <Card className="border-0 shadow-sm">
           <CardContent className="p-6">
-            <div className="flex justify-center gap-4">
+            <div className="flex justify-center gap-4 mb-6">
               {!isActive ? (
                 <Button
                   onClick={handleStart}
                   size="lg"
-                  className="bg-success text-success-foreground hover:bg-success/90"
+                  className="bg-primary text-primary-foreground hover:bg-primary/90 px-8"
                 >
                   <Play className="mr-2" size={20} />
-                  开始
+                  开始练习
                 </Button>
               ) : (
                 <Button
                   onClick={handlePause}
                   size="lg"
                   variant="outline"
+                  className="border-0 bg-secondary hover:bg-secondary/80 px-8"
                 >
                   <Pause className="mr-2" size={20} />
                   暂停
@@ -204,15 +202,15 @@ export const BreathingPage = () => {
                 onClick={handleReset}
                 size="lg"
                 variant="outline"
+                className="border-0 bg-secondary hover:bg-secondary/80"
               >
-                <RotateCcw className="mr-2" size={20} />
-                重置
+                <RotateCcw size={20} />
               </Button>
             </div>
 
-            <div className="mt-6 text-center">
+            <div className="text-center">
               <div className="text-sm text-muted-foreground">
-                已完成 {cycle} 个完整周期
+                已完成 <span className="font-semibold text-foreground">{cycle}</span> 个完整周期
               </div>
             </div>
           </CardContent>

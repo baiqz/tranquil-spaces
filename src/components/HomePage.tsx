@@ -1,78 +1,66 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Waves, Brain, BookOpen, Heart, Sun, Moon } from "lucide-react";
+import { Waves, Brain, BookOpen, ArrowRight } from "lucide-react";
 
 interface HomePageProps {
   onNavigate: (tab: string) => void;
 }
 
 export const HomePage = ({ onNavigate }: HomePageProps) => {
+  const greetingTime = () => {
+    const hour = new Date().getHours();
+    if (hour < 12) return '早安';
+    if (hour < 18) return '下午好';
+    return '晚安';
+  };
+
   const quickActions = [
     {
       id: 'breathing',
-      title: '4-7-8 呼吸法',
-      subtitle: '快速放松身心',
+      title: '呼吸练习',
+      subtitle: '调节呼吸，平静心神',
       icon: Waves,
-      color: 'bg-primary',
       action: () => onNavigate('breathing')
     },
     {
       id: 'meditation',
       title: '冥想练习',
-      subtitle: '专注当下时刻',
+      subtitle: '专注当下，内心宁静',
       icon: Brain,
-      color: 'bg-secondary',
       action: () => onNavigate('meditation')
     },
     {
       id: 'articles',
-      title: '智慧文章',
-      subtitle: '斯多葛哲学',
+      title: '斯多葛智慧',
+      subtitle: '古老智慧，现代应用',
       icon: BookOpen,
-      color: 'bg-accent',
       action: () => onNavigate('articles')
     }
   ];
 
-  const greetingTime = () => {
-    const hour = new Date().getHours();
-    if (hour < 12) return { text: '早安', icon: Sun };
-    if (hour < 18) return { text: '下午好', icon: Sun };
-    return { text: '晚安', icon: Moon };
-  };
-
-  const greeting = greetingTime();
-  const GreetingIcon = greeting.icon;
-
   return (
     <div className="flex flex-col min-h-screen bg-background">
       {/* Header */}
-      <div className="pt-12 pb-8 px-6">
-        <div className="flex items-center gap-3 mb-4">
-          <GreetingIcon className="text-primary" size={28} />
-          <h1 className="text-2xl font-bold text-foreground">
-            {greeting.text}，欢迎回来
-          </h1>
-        </div>
-        <p className="text-muted-foreground text-lg">
-          今天也要照顾好自己的心灵
+      <div className="pt-16 pb-8 px-6">
+        <h1 className="text-3xl font-bold text-foreground mb-2">
+          {greetingTime()}
+        </h1>
+        <p className="text-lg text-muted-foreground">
+          今天也要好好照顾自己
         </p>
       </div>
 
-      {/* Daily Quote */}
+      {/* Daily Quote Card */}
       <div className="px-6 mb-8">
-        <Card className="bg-gradient-to-r from-primary/20 to-secondary/20 border-none shadow-lg">
+        <Card className="border-0 shadow-sm">
           <CardContent className="p-6">
-            <div className="flex items-start gap-4">
-              <Heart className="text-primary flex-shrink-0 mt-1" size={24} />
-              <div>
-                <p className="text-foreground font-medium mb-2">
-                  "你不能控制发生在你身上的事，但你可以控制你对此的反应。"
-                </p>
-                <p className="text-muted-foreground text-sm">
-                  — 爱比克泰德
-                </p>
-              </div>
+            <div className="text-center">
+              <p className="text-lg font-medium text-foreground mb-3 leading-relaxed">
+                "你不能控制发生在你身上的事，但你可以控制你对此的反应。"
+              </p>
+              <p className="text-sm text-muted-foreground">
+                爱比克泰德
+              </p>
             </div>
           </CardContent>
         </Card>
@@ -80,31 +68,31 @@ export const HomePage = ({ onNavigate }: HomePageProps) => {
 
       {/* Quick Actions */}
       <div className="px-6 flex-1">
-        <h2 className="text-xl font-semibold text-foreground mb-6">
-          快速开始
-        </h2>
-        <div className="grid gap-4">
+        <div className="space-y-4">
           {quickActions.map((action) => {
             const Icon = action.icon;
             return (
               <Card 
                 key={action.id} 
-                className="hover:shadow-lg smooth-transition cursor-pointer"
+                className="border-0 shadow-sm hover:shadow-md smooth-transition cursor-pointer active:scale-[0.98]"
                 onClick={action.action}
               >
                 <CardContent className="p-6">
-                  <div className="flex items-center gap-4">
-                    <div className={`${action.color} p-3 rounded-full flex items-center justify-center`}>
-                      <Icon className="text-white" size={24} />
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-4">
+                      <div className="w-12 h-12 bg-secondary rounded-2xl flex items-center justify-center">
+                        <Icon className="text-foreground" size={24} />
+                      </div>
+                      <div>
+                        <h3 className="font-semibold text-foreground text-lg mb-1">
+                          {action.title}
+                        </h3>
+                        <p className="text-muted-foreground text-sm">
+                          {action.subtitle}
+                        </p>
+                      </div>
                     </div>
-                    <div className="flex-1">
-                      <h3 className="font-semibold text-foreground text-lg">
-                        {action.title}
-                      </h3>
-                      <p className="text-muted-foreground">
-                        {action.subtitle}
-                      </p>
-                    </div>
+                    <ArrowRight className="text-muted-foreground" size={20} />
                   </div>
                 </CardContent>
               </Card>
@@ -113,8 +101,32 @@ export const HomePage = ({ onNavigate }: HomePageProps) => {
         </div>
       </div>
 
-      {/* Bottom Spacing for Navigation */}
-      <div className="h-20"></div>
+      {/* Stats Section */}
+      <div className="px-6 pb-24 mt-8">
+        <h2 className="text-xl font-semibold text-foreground mb-4">
+          今日练习
+        </h2>
+        <div className="grid grid-cols-3 gap-4">
+          <Card className="border-0 shadow-sm">
+            <CardContent className="p-4 text-center">
+              <div className="text-2xl font-bold text-foreground mb-1">3</div>
+              <div className="text-xs text-muted-foreground">呼吸练习</div>
+            </CardContent>
+          </Card>
+          <Card className="border-0 shadow-sm">
+            <CardContent className="p-4 text-center">
+              <div className="text-2xl font-bold text-foreground mb-1">15</div>
+              <div className="text-xs text-muted-foreground">冥想分钟</div>
+            </CardContent>
+          </Card>
+          <Card className="border-0 shadow-sm">
+            <CardContent className="p-4 text-center">
+              <div className="text-2xl font-bold text-foreground mb-1">2</div>
+              <div className="text-xs text-muted-foreground">文章阅读</div>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
     </div>
   );
 };

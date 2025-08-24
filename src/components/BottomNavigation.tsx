@@ -16,7 +16,7 @@ const tabs = [
 
 export const BottomNavigation = ({ activeTab, onTabChange }: BottomNavigationProps) => {
   return (
-    <nav className="fixed bottom-0 left-0 right-0 bg-card border-t border-border/50 backdrop-blur-sm">
+    <nav className="fixed bottom-0 left-0 right-0 bg-card border-t border-border/30 backdrop-blur-md">
       <div className="flex items-center justify-around py-2 px-4 max-w-md mx-auto">
         {tabs.map((tab) => {
           const Icon = tab.icon;
@@ -27,21 +27,21 @@ export const BottomNavigation = ({ activeTab, onTabChange }: BottomNavigationPro
               key={tab.id}
               onClick={() => onTabChange(tab.id)}
               className={cn(
-                "flex flex-col items-center justify-center p-3 rounded-xl smooth-transition",
-                "hover:bg-primary/20 active:scale-95",
-                isActive && "bg-primary/10"
+                "flex flex-col items-center justify-center p-3 rounded-2xl smooth-transition min-w-[60px]",
+                "hover:bg-secondary/50 active:scale-95",
+                isActive && "bg-primary text-primary-foreground"
               )}
             >
               <Icon 
-                size={24} 
+                size={22} 
                 className={cn(
-                  "transition-colors duration-200",
+                  "transition-colors duration-200 mb-1",
                   isActive ? "text-primary-foreground" : "text-muted-foreground"
                 )} 
               />
               <span 
                 className={cn(
-                  "text-xs mt-1 font-medium transition-colors duration-200",
+                  "text-xs font-medium transition-colors duration-200",
                   isActive ? "text-primary-foreground" : "text-muted-foreground"
                 )}
               >
