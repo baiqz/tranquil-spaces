@@ -1,12 +1,35 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState } from "react";
+import { BottomNavigation } from "@/components/BottomNavigation";
+import { HomePage } from "@/components/HomePage";
+import { BreathingPage } from "@/components/BreathingPage";
+import { MeditationPage } from "@/components/MeditationPage";
+import { ArticlesPage } from "@/components/ArticlesPage";
+import { ProfilePage } from "@/components/ProfilePage";
 
 const Index = () => {
+  const [activeTab, setActiveTab] = useState('home');
+
+  const renderPage = () => {
+    switch (activeTab) {
+      case 'home':
+        return <HomePage onNavigate={setActiveTab} />;
+      case 'breathing':
+        return <BreathingPage />;
+      case 'meditation':
+        return <MeditationPage />;
+      case 'articles':
+        return <ArticlesPage />;
+      case 'profile':
+        return <ProfilePage />;
+      default:
+        return <HomePage onNavigate={setActiveTab} />;
+    }
+  };
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
+    <div className="min-h-screen bg-background">
+      {renderPage()}
+      <BottomNavigation activeTab={activeTab} onTabChange={setActiveTab} />
     </div>
   );
 };
