@@ -57,6 +57,14 @@ const translations = {
     female: '女声',
     calm: '平静',
     warm: '温暖',
+    loading: '加载中',
+    
+    // Categories
+    uncategorized: '未分类',
+    'core-principles': '核心原则', 
+    'practice-guide': '实践指南',
+    mindfulness: '正念练习',
+    philosophy: '哲学思考',
     
     // Breathing
     breathingGuide: '呼吸指导',
@@ -69,7 +77,6 @@ const translations = {
     stop: '停止',
     close: '关闭',
     settings: '设置',
-    loading: '加载中...',
   },
   en: {
     // Navigation
@@ -116,6 +123,14 @@ const translations = {
     female: 'Female',
     calm: 'Calm',
     warm: 'Warm',
+    loading: 'Loading',
+    
+    // Categories
+    uncategorized: 'Uncategorized',
+    'core-principles': 'Core Principles',
+    'practice-guide': 'Practice Guide',
+    mindfulness: 'Mindfulness',
+    philosophy: 'Philosophy',
     
     // Breathing
     breathingGuide: 'Breathing Guide',
@@ -128,7 +143,6 @@ const translations = {
     stop: 'Stop',
     close: 'Close',
     settings: 'Settings',
-    loading: 'Loading...',
   }
 };
 

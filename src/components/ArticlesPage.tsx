@@ -1,26 +1,33 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { BookOpen, Clock, Heart, ArrowLeft } from "lucide-react";
+import { BookOpen, Clock, Heart, ArrowLeft, Plus, Edit } from "lucide-react";
 import { ThemeSwitcher } from "./ThemeSwitcher";
+import { ArticleEditor } from "./ArticleEditor";
 import { cn } from "@/lib/utils";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { TTSPlayer } from "@/components/TTS/TTSPlayer";
+import { supabase } from "@/integrations/supabase/client";
+import ReactMarkdown from 'react-markdown';
 
 interface Article {
-  id: number;
+  id: number | string;
   title: string;
   excerpt: string;
   content: string;
   readTime: string;
   category: string;
   isFavorite: boolean;
+  isUserGenerated?: boolean;
 }
 
 export const ArticlesPage = () => {
   const { t, language, setLanguage } = useLanguage();
   const [selectedArticle, setSelectedArticle] = useState<Article | null>(null);
-  const [articles, setArticles] = useState<Article[]>([
+  const [showEditor, setShowEditor] = useState(false);
+  const [editingArticle, setEditingArticle] = useState<Article | null>(null);
+  const [userArticles, setUserArticles] = useState<Article[]>([]);
+  const [defaultArticles] = useState<Article[]>([
     {
       id: 1,
       title: "控制你能控制的",
@@ -90,13 +97,98 @@ export const ArticlesPage = () => {
     }
   ]);
 
-  const toggleFavorite = (articleId: number) => {
-    setArticles(articles.map(article => 
-      article.id === articleId 
-        ? { ...article, isFavorite: !article.isFavorite }
-        : article
-    ));
+  const articles = [...defaultArticles, ...userArticles];
+
+  useEffect(() => {
+    loadUserArticles();
+  }, []);
+
+  const loadUserArticles = async () => {
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return;
+
+      const { data, error } = await supabase
+        .from('articles')
+        .select('*')
+        .eq('user_id', user.id)
+        .eq('is_published', true)
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+
+      const formattedArticles = data?.map((article: any) => ({
+        id: article.id,
+        title: article.title,
+        excerpt: article.excerpt,
+        content: article.content,
+        readTime: article.read_time,
+        category: article.category,
+        isFavorite: article.is_favorite,
+        isUserGenerated: true
+      })) || [];
+
+      setUserArticles(formattedArticles);
+    } catch (error) {
+      console.error('Error loading user articles:', error);
+    }
   };
+
+  const toggleFavorite = async (articleId: number | string) => {
+    // Handle default articles
+    if (typeof articleId === 'number') {
+      const updatedDefaults = defaultArticles.map(article => 
+        article.id === articleId 
+          ? { ...article, isFavorite: !article.isFavorite }
+          : article
+      );
+      return;
+    }
+
+    // Handle user articles
+    try {
+      const article = userArticles.find(a => a.id === articleId);
+      if (!article) return;
+
+      const { error } = await supabase
+        .from('articles')
+        .update({ is_favorite: !article.isFavorite })
+        .eq('id', articleId);
+
+      if (error) throw error;
+
+      setUserArticles(prev => prev.map(a => 
+        a.id === articleId 
+          ? { ...a, isFavorite: !a.isFavorite }
+          : a
+      ));
+    } catch (error) {
+      console.error('Error updating favorite:', error);
+    }
+  };
+
+  const handleEditArticle = (article: Article) => {
+    setEditingArticle(article);
+    setShowEditor(true);
+  };
+
+  const handleCreateNew = () => {
+    setEditingArticle(null);
+    setShowEditor(true);
+  };
+
+  if (showEditor) {
+    return (
+      <ArticleEditor
+        onBack={() => {
+          setShowEditor(false);
+          setEditingArticle(null);
+          loadUserArticles();
+        }}
+        editingArticle={editingArticle}
+      />
+    );
+  }
 
   if (selectedArticle) {
     return (
@@ -152,12 +244,20 @@ export const ArticlesPage = () => {
 
         {/* Article Content */}
         <div className="flex-1 px-6 py-6">
-          <div className="prose prose-lg max-w-none">
-            {selectedArticle.content.split('\n\n').map((paragraph, index) => (
-              <p key={index} className="mb-6 text-foreground leading-relaxed font-serif text-lg animate-fade-in" style={{ animationDelay: `${index * 0.1}s` }}>
-                {paragraph}
-              </p>
-            ))}
+          <div className="prose prose-lg max-w-none text-foreground">
+            {selectedArticle.isUserGenerated ? (
+              <div className="markdown-content font-serif">
+                <ReactMarkdown>
+                  {selectedArticle.content}
+                </ReactMarkdown>
+              </div>
+            ) : (
+              selectedArticle.content.split('\n\n').map((paragraph, index) => (
+                <p key={index} className="mb-6 leading-relaxed font-serif text-lg">
+                  {paragraph}
+                </p>
+              ))
+            )}
           </div>
         </div>
 
@@ -181,7 +281,16 @@ export const ArticlesPage = () => {
             </p>
           </div>
           
-          <ThemeSwitcher />
+          <div className="flex items-center gap-3">
+            <Button
+              onClick={handleCreateNew}
+              className="bg-primary/20 hover:bg-primary/30 border border-primary/30 text-primary"
+            >
+              <Plus size={16} className="mr-2" />
+              New Article
+            </Button>
+            <ThemeSwitcher />
+          </div>
         </div>
       </div>
 
@@ -203,23 +312,38 @@ export const ArticlesPage = () => {
                     <span>{article.category}</span>
                   </div>
                   
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      toggleFavorite(article.id);
-                    }}
-                    className={cn(
-                      "p-2 hover:bg-secondary/20",
-                      article.isFavorite && "text-red-400 hover:text-red-300"
+                  <div className="flex items-center gap-1">
+                    {article.isUserGenerated && (
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleEditArticle(article);
+                        }}
+                        className="p-2 hover:bg-secondary/20 text-muted-foreground hover:text-foreground"
+                      >
+                        <Edit size={14} />
+                      </Button>
                     )}
-                  >
-                    <Heart 
-                      size={16} 
-                      className={article.isFavorite ? "fill-current" : ""} 
-                    />
-                  </Button>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        toggleFavorite(article.id);
+                      }}
+                      className={cn(
+                        "p-2 hover:bg-secondary/20",
+                        article.isFavorite && "text-red-400 hover:text-red-300"
+                      )}
+                    >
+                      <Heart 
+                        size={16} 
+                        className={article.isFavorite ? "fill-current" : ""} 
+                      />
+                    </Button>
+                  </div>
                 </div>
                 
                 <h3 className="text-lg font-semibold text-foreground mb-2 leading-tight font-serif">

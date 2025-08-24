@@ -61,7 +61,7 @@ export const HomePage = ({ onNavigate }: HomePageProps) => {
 
       {/* Daily Quote Card */}
       <div className="px-6 mb-8">
-        <Card className="glass-dark border-0 shadow-lg animate-glass-float">
+        <Card className="glass-dark border-0 shadow-lg">
           <CardContent className="p-6">
             <div className="text-center">
               <p className="text-lg font-medium text-foreground mb-3 leading-relaxed font-serif">
@@ -83,9 +83,8 @@ export const HomePage = ({ onNavigate }: HomePageProps) => {
             return (
               <Card 
                 key={action.id} 
-                className="glass-dark border-0 shadow-lg hover:shadow-xl smooth-transition cursor-pointer active:scale-[0.98] animate-fade-in"
+                className="glass-dark border-0 shadow-lg hover:shadow-xl smooth-transition cursor-pointer active:scale-[0.98]"
                 onClick={action.action}
-                style={{ animationDelay: `${quickActions.indexOf(action) * 0.1}s` }}
               >
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
@@ -117,19 +116,19 @@ export const HomePage = ({ onNavigate }: HomePageProps) => {
           {t('todayPractice')}
         </h2>
         <div className="grid grid-cols-3 gap-4">
-          <Card className="glass-dark border-0 shadow-lg animate-glass-float">
+          <Card className="glass-dark border-0 shadow-lg">
             <CardContent className="p-4 text-center">
               <div className="text-2xl font-bold text-primary mb-1">3</div>
               <div className="text-xs text-muted-foreground">呼吸练习</div>
             </CardContent>
           </Card>
-          <Card className="glass-dark border-0 shadow-lg animate-glass-float" style={{ animationDelay: '0.1s' }}>
+          <Card className="glass-dark border-0 shadow-lg">
             <CardContent className="p-4 text-center">
               <div className="text-2xl font-bold text-primary mb-1">15</div>
               <div className="text-xs text-muted-foreground">冥想分钟</div>
             </CardContent>
           </Card>
-          <Card className="glass-dark border-0 shadow-lg animate-glass-float" style={{ animationDelay: '0.2s' }}>
+          <Card className="glass-dark border-0 shadow-lg">
             <CardContent className="p-4 text-center">
               <div className="text-2xl font-bold text-primary mb-1">2</div>
               <div className="text-xs text-muted-foreground">文章阅读</div>

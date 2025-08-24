@@ -23,11 +23,11 @@ const backgroundMusicOptions = [
 ];
 
 const voiceOptions = [
-  { id: 'default', name: 'default', value: null },
-  { id: 'male', name: 'male', value: 'zh-CN-YunyangNeural' },
-  { id: 'female', name: 'female', value: 'zh-CN-XiaoxiaoNeural' },
-  { id: 'calm', name: 'calm', value: 'zh-CN-YunjianNeural' },
-  { id: 'warm', name: 'warm', value: 'zh-CN-XiaoyouNeural' },
+  { id: 'default', name: 'default', lang: 'zh-CN', rate: 0.9, pitch: 1 },
+  { id: 'male', name: 'male', lang: 'zh-CN', rate: 0.8, pitch: 0.8 },
+  { id: 'female', name: 'female', lang: 'zh-CN', rate: 0.9, pitch: 1.2 },
+  { id: 'calm', name: 'calm', lang: 'zh-CN', rate: 0.7, pitch: 0.9 },
+  { id: 'warm', name: 'warm', lang: 'zh-CN', rate: 0.85, pitch: 1.1 },
 ];
 
 export const TTSPlayer: React.FC<TTSPlayerProps> = ({ 
@@ -48,27 +48,50 @@ export const TTSPlayer: React.FC<TTSPlayerProps> = ({
 
   const synthesizeSpeech = async (text: string): Promise<string> => {
     try {
-      // This would typically call your TTS service
-      // For now, using browser's built-in speech synthesis
       return new Promise((resolve, reject) => {
         const utterance = new SpeechSynthesisUtterance(text);
         
-        // Set voice if selected
-        if (selectedVoice !== 'default') {
-          const voices = speechSynthesis.getVoices();
-          const selectedVoiceObj = voices.find(voice => 
-            voice.name.includes('Chinese') || voice.lang.includes('zh')
+        // Get voice settings
+        const voiceConfig = voiceOptions.find(v => v.id === selectedVoice) || voiceOptions[0];
+        
+        // Set voice based on language and selected voice type
+        const voices = speechSynthesis.getVoices();
+        let selectedVoiceObj = null;
+
+        if (selectedVoice === 'male') {
+          selectedVoiceObj = voices.find(voice => 
+            voice.lang.includes('zh') && 
+            (voice.name.includes('Male') || voice.name.includes('男') || voice.name.includes('Kangkang'))
           );
-          if (selectedVoiceObj) {
-            utterance.voice = selectedVoiceObj;
-          }
+        } else if (selectedVoice === 'female') {
+          selectedVoiceObj = voices.find(voice => 
+            voice.lang.includes('zh') && 
+            (voice.name.includes('Female') || voice.name.includes('女') || voice.name.includes('Xiaoxiao'))
+          );
+        } else {
+          selectedVoiceObj = voices.find(voice => 
+            voice.lang.includes('zh') || voice.name.includes('Chinese')
+          );
+        }
+
+        if (selectedVoiceObj) {
+          utterance.voice = selectedVoiceObj;
         }
         
-        utterance.rate = 0.9;
-        utterance.pitch = 1;
+        utterance.rate = voiceConfig.rate;
+        utterance.pitch = voiceConfig.pitch;
         utterance.volume = 0.8;
-        utterance.onend = () => resolve('completed');
-        utterance.onerror = (e) => reject(e);
+        utterance.lang = voiceConfig.lang;
+        
+        utterance.onend = () => {
+          setIsPlaying(false);
+          resolve('completed');
+        };
+        utterance.onerror = (e) => {
+          setIsPlaying(false);
+          reject(e);
+        };
+        
         speechSynthesis.speak(utterance);
       });
     } catch (error) {
