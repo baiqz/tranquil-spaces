@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { BookOpen, Clock, Heart, ArrowLeft } from "lucide-react";
+import { BookOpen, Clock, Heart, ArrowLeft, Globe } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { TTSPlayer } from "@/components/TTS/TTSPlayer";
 
 interface Article {
   id: number;
@@ -15,6 +17,7 @@ interface Article {
 }
 
 export const ArticlesPage = () => {
+  const { t, language, setLanguage } = useLanguage();
   const [selectedArticle, setSelectedArticle] = useState<Article | null>(null);
   const [articles, setArticles] = useState<Article[]>([
     {
@@ -96,16 +99,16 @@ export const ArticlesPage = () => {
 
   if (selectedArticle) {
     return (
-      <div className="flex flex-col min-h-screen bg-background">
+      <div className="flex flex-col min-h-screen bg-background flow-bg">
         {/* Article Header */}
-        <div className="pt-16 pb-6 px-6 border-b border-border/30">
+        <div className="pt-16 pb-6 px-6 border-b border-border/30 glass-dark">
           <Button
             variant="ghost"
             onClick={() => setSelectedArticle(null)}
             className="mb-4 -ml-2 text-muted-foreground hover:text-foreground"
           >
             <ArrowLeft size={20} className="mr-2" />
-            返回
+            {t('back')}
           </Button>
           
           <div className="flex items-center gap-2 text-sm text-muted-foreground mb-3">
@@ -115,35 +118,42 @@ export const ArticlesPage = () => {
             <span>{selectedArticle.category}</span>
           </div>
           
-          <h1 className="text-2xl font-bold text-foreground mb-4 leading-tight">
+          <h1 className="text-2xl font-bold text-foreground mb-4 leading-tight font-serif">
             {selectedArticle.title}
           </h1>
           
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => toggleFavorite(selectedArticle.id)}
-            className={cn(
-              "text-muted-foreground hover:text-foreground -ml-2",
-              selectedArticle.isFavorite && "text-red-500 hover:text-red-600"
-            )}
-          >
-            <Heart 
-              size={18} 
+          <div className="flex items-center gap-3">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => toggleFavorite(selectedArticle.id)}
               className={cn(
-                "mr-2",
-                selectedArticle.isFavorite && "fill-current"
-              )} 
-            />
-            {selectedArticle.isFavorite ? '已收藏' : '收藏'}
-          </Button>
+                "text-muted-foreground hover:text-foreground -ml-2",
+                selectedArticle.isFavorite && "text-red-500 hover:text-red-600"
+              )}
+            >
+              <Heart 
+                size={18} 
+                className={cn(
+                  "mr-2",
+                  selectedArticle.isFavorite && "fill-current"
+                )} 
+              />
+              {selectedArticle.isFavorite ? t('favorited') : t('favorite')}
+            </Button>
+          </div>
+        </div>
+
+        {/* TTS Player */}
+        <div className="px-6 pt-4">
+          <TTSPlayer text={selectedArticle.content} />
         </div>
 
         {/* Article Content */}
         <div className="flex-1 px-6 py-6">
           <div className="prose prose-lg max-w-none">
             {selectedArticle.content.split('\n\n').map((paragraph, index) => (
-              <p key={index} className="mb-4 text-foreground leading-relaxed">
+              <p key={index} className="mb-6 text-foreground leading-relaxed font-serif text-lg animate-fade-in" style={{ animationDelay: `${index * 0.1}s` }}>
                 {paragraph}
               </p>
             ))}
@@ -157,25 +167,40 @@ export const ArticlesPage = () => {
   }
 
   return (
-    <div className="flex flex-col min-h-screen bg-background">
+    <div className="flex flex-col min-h-screen bg-background flow-bg">
       {/* Header */}
       <div className="pt-16 pb-8 px-6">
-        <h1 className="text-3xl font-bold text-foreground mb-2">
-          斯多葛智慧
-        </h1>
-        <p className="text-muted-foreground">
-          古老的智慧，现代的应用
-        </p>
+        <div className="flex items-center justify-between mb-4">
+          <div>
+            <h1 className="text-3xl font-bold text-foreground mb-2 font-serif">
+              {t('stoicWisdom')}
+            </h1>
+            <p className="text-muted-foreground">
+              {t('ancientWisdomModernApplication')}
+            </p>
+          </div>
+          
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setLanguage(language === 'zh' ? 'en' : 'zh')}
+            className="glass-dark border-border/30 text-muted-foreground hover:text-foreground"
+          >
+            <Globe size={16} className="mr-2" />
+            {language === 'zh' ? 'EN' : '中'}
+          </Button>
+        </div>
       </div>
 
       {/* Articles List */}
       <div className="px-6 flex-1">
         <div className="space-y-4">
-          {articles.map((article) => (
+          {articles.map((article, index) => (
             <Card 
               key={article.id}
-              className="border-0 shadow-sm hover:shadow-md smooth-transition cursor-pointer active:scale-[0.98]"
+              className="glass-dark border-0 shadow-lg hover:shadow-xl smooth-transition cursor-pointer active:scale-[0.98] animate-glass-float"
               onClick={() => setSelectedArticle(article)}
+              style={{ animationDelay: `${index * 0.1}s` }}
             >
               <CardContent className="p-6">
                 <div className="flex items-start justify-between mb-3">
@@ -194,8 +219,8 @@ export const ArticlesPage = () => {
                       toggleFavorite(article.id);
                     }}
                     className={cn(
-                      "p-2 hover:bg-secondary",
-                      article.isFavorite && "text-red-500 hover:text-red-600"
+                      "p-2 hover:bg-secondary/20",
+                      article.isFavorite && "text-red-400 hover:text-red-300"
                     )}
                   >
                     <Heart 
@@ -205,7 +230,7 @@ export const ArticlesPage = () => {
                   </Button>
                 </div>
                 
-                <h3 className="text-lg font-semibold text-foreground mb-2 leading-tight">
+                <h3 className="text-lg font-semibold text-foreground mb-2 leading-tight font-serif">
                   {article.title}
                 </h3>
                 
@@ -215,7 +240,7 @@ export const ArticlesPage = () => {
                 
                 <div className="flex items-center text-primary mt-4 text-sm">
                   <BookOpen size={16} className="mr-2" />
-                  <span className="font-medium">阅读全文</span>
+                  <span className="font-medium">{t('readFullArticle')}</span>
                 </div>
               </CardContent>
             </Card>

@@ -5,6 +5,7 @@ import { BreathingPage } from "@/components/BreathingPage";
 import { MeditationPage } from "@/components/MeditationPage";
 import { ArticlesPage } from "@/components/ArticlesPage";
 import { ProfilePage } from "@/components/ProfilePage";
+import { LanguageProvider } from "@/contexts/LanguageContext";
 
 const Index = () => {
   const [activeTab, setActiveTab] = useState('home');
@@ -27,10 +28,12 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
-      {renderPage()}
-      <BottomNavigation activeTab={activeTab} onTabChange={setActiveTab} />
-    </div>
+    <LanguageProvider>
+      <div className="min-h-screen bg-background flow-bg">
+        {renderPage()}
+        <BottomNavigation activeTab={activeTab} onTabChange={setActiveTab} />
+      </div>
+    </LanguageProvider>
   );
 };
 

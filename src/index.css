@@ -2,50 +2,50 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Soul Pease Design System - Mental Health App Colors in HSL */
+/* Soul Pease Design System - Dark Purple Theme with Glassmorphism */
 
 @layer base {
   :root {
-    /* Minimalist color palette inspired by Stoic app */
-    --background: 0 0% 100%; /* Pure white */
-    --foreground: 0 0% 9%; /* Near black for text */
+    /* Dark purple gradient theme */
+    --background: 240 15% 9%; /* Deep dark purple-black */
+    --foreground: 0 0% 98%; /* Near white text */
 
-    /* Card colors - clean white with subtle shadows */
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 9%;
+    /* Card colors - frosted glass effect */
+    --card: 240 15% 15%; /* Dark purple with transparency */
+    --card-foreground: 0 0% 95%;
 
     /* Popover colors */
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 9%;
+    --popover: 240 15% 12%;
+    --popover-foreground: 0 0% 95%;
 
-    /* Primary colors - subtle blue accent */
-    --primary: 221 83% 53%; /* Clean blue */
-    --primary-foreground: 0 0% 98%;
-    --primary-hover: 221 83% 48%;
+    /* Primary colors - vibrant purple */
+    --primary: 269 100% 75%; /* Bright purple */
+    --primary-foreground: 240 15% 9%;
+    --primary-hover: 269 100% 80%;
 
-    /* Secondary colors - light gray */
-    --secondary: 0 0% 96%; /* Very light gray */
-    --secondary-foreground: 0 0% 9%;
-    --secondary-hover: 0 0% 92%;
+    /* Secondary colors - translucent dark */
+    --secondary: 240 15% 20%; /* Darker purple-gray */
+    --secondary-foreground: 0 0% 90%;
+    --secondary-hover: 240 15% 25%;
 
     /* Muted colors for subtle elements */
-    --muted: 0 0% 96%;
-    --muted-foreground: 0 0% 45%; /* Medium gray for secondary text */
+    --muted: 240 15% 18%;
+    --muted-foreground: 0 0% 65%; /* Light gray for secondary text */
 
-    /* Accent colors */
-    --accent: 0 0% 96%;
-    --accent-foreground: 0 0% 9%;
+    /* Accent colors - purple tint */
+    --accent: 260 30% 25%;
+    --accent-foreground: 0 0% 95%;
 
     /* Status colors */
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
-    --success: 142 76% 36%; /* Clean green */
+    --success: 142 76% 50%; /* Brighter green for dark theme */
     --success-foreground: 0 0% 98%;
 
-    /* Border and input - very subtle */
-    --border: 0 0% 90%; /* Light gray borders */
-    --input: 0 0% 96%;
-    --ring: 221 83% 53%;
+    /* Border and input - subtle purple */
+    --border: 240 15% 25%; /* Purple-tinted borders */
+    --input: 240 15% 18%;
+    --ring: 269 100% 75%;
 
     /* Larger radius for modern look */
     --radius: 1.5rem;
@@ -68,38 +68,38 @@
   }
 
   .dark {
-    /* Dark mode with clean contrast */
-    --background: 0 0% 9%; /* Near black */
-    --foreground: 0 0% 98%; /* Near white text */
+    /* Enhanced dark purple theme */
+    --background: 240 20% 6%; /* Even darker purple-black */
+    --foreground: 0 0% 98%;
 
-    --card: 0 0% 12%; /* Dark cards */
-    --card-foreground: 0 0% 98%;
+    --card: 240 20% 12%;
+    --card-foreground: 0 0% 95%;
 
-    --popover: 0 0% 12%;
-    --popover-foreground: 0 0% 98%;
+    --popover: 240 20% 10%;
+    --popover-foreground: 0 0% 95%;
 
-    --primary: 221 83% 53%; /* Same blue in dark mode */
-    --primary-foreground: 0 0% 98%;
-    --primary-hover: 221 83% 58%;
+    --primary: 269 100% 80%; /* Brighter purple in dark mode */
+    --primary-foreground: 240 20% 6%;
+    --primary-hover: 269 100% 85%;
 
-    --secondary: 0 0% 15%; /* Dark gray */
-    --secondary-foreground: 0 0% 98%;
-    --secondary-hover: 0 0% 18%;
+    --secondary: 240 20% 15%;
+    --secondary-foreground: 0 0% 90%;
+    --secondary-hover: 240 20% 20%;
 
-    --muted: 0 0% 15%;
-    --muted-foreground: 0 0% 60%; /* Lighter gray for readability */
+    --muted: 240 20% 15%;
+    --muted-foreground: 0 0% 70%;
 
-    --accent: 0 0% 15%;
-    --accent-foreground: 0 0% 98%;
+    --accent: 260 40% 20%;
+    --accent-foreground: 0 0% 95%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
-    --success: 142 76% 36%;
+    --success: 142 76% 55%;
     --success-foreground: 0 0% 98%;
 
-    --border: 0 0% 20%; /* Subtle dark borders */
-    --input: 0 0% 15%;
-    --ring: 221 83% 53%;
+    --border: 240 20% 25%;
+    --input: 240 20% 15%;
+    --ring: 269 100% 80%;
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
@@ -145,6 +145,8 @@
     @apply bg-background text-foreground font-sans;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    background: linear-gradient(135deg, hsl(var(--background)) 0%, hsl(240 20% 12%) 100%);
+    min-height: 100vh;
   }
 
   /* Breathing exercise animations */
@@ -171,5 +173,45 @@
   /* Smooth transitions for better UX */
   .smooth-transition {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Glassmorphism effects */
+  .glass {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .glass-dark {
+    background: rgba(240, 240, 240, 0.05);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  /* Flowing background elements */
+  .flow-bg::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(168, 85, 247, 0.15) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: flow 25s linear infinite;
+    z-index: -1;
+  }
+
+  .flow-bg::after {
+    content: '';
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 150px;
+    height: 150px;
+    background: radial-gradient(circle, rgba(139, 69, 196, 0.1) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: flow 30s linear infinite reverse;
+    z-index: -1;
   }
 }
